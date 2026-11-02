@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX RUSH // Картинг Клуб Премиум-Класса</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Russo One & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&family=Russo+One&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#FF003C',
+                            yellow: '#FFE600',
+                            dark: '#0A0A0C',
+                            card: '#121318',
+                            neon: '#00F0FF'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['"Russo One"', 'sans-serif'],
+                        body: ['"Montserrat"', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'speed-line': 'speedLine 1.5s linear infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        speedLine: {
+                            '0%': { transform: 'translateX(-100%) skewX(-30deg)', opacity: '0' },
+                            '50%': { opacity: '0.8' },
+                            '100%': { transform: 'translateX(200%) skewX(-30deg)', opacity: '0' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0A0A0C;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+
+        .font-heading {
+            font-family: 'Russo One', sans-serif;
+        }
+
+        /* Speed trails overlay */
+        .grid-bg {
+            background-image: linear-gradient(to right, rgba(255, 0, 60, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 0, 60, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Custom glow effects */
+        .glow-red {
+            box-shadow: 0 0 35px rgba(255, 0, 60, 0.6);
+        }
+
+        .glow-yellow {
+            box-shadow: 0 0 30px rgba(255, 230, 0, 0.5);
+        }
+
+        .text-glow-red {
+            text-shadow: 0 0 20px rgba(255, 0, 60, 0.8);
+        }
+
+        .text-glow-yellow {
+            text-shadow: 0 0 20px rgba(255, 230, 0, 0.8);
+        }
+
+        /* Slanted banner effects */
+        .skew-box {
+            transform: skewX(-12deg);
+        }
+
+        .unskew {
+            transform: skewX(12deg);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0C;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF003C;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="grid-bg selection:bg-brand-red selection:text-white">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-brand-red/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-12 h-10 bg-brand-red skew-box flex items-center justify-center font-heading text-2xl text-black font-black group-hover:bg-brand-yellow transition-colors">
+                    <span class="unskew text-black">A</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-heading text-2xl tracking-wider text-white flex items-center gap-1">
+                        APEX<span class="text-brand-red group-hover:text-brand-yellow transition-colors">RUSH</span>
+                    </span>
+                    <span class="text-[9px] uppercase tracking-[0.3em] text-gray-400 -mt-1 font-bold">Karting Club</span>
+                </div>
+            </a>
+
+            <!-- Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 font-heading text-sm tracking-wider uppercase">
+                <a href="#karts" class="hover:text-brand-red transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-red hover:after:w-full after:transition-all">Карты</a>
+                <a href="#track" class="hover:text-brand-red transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-red hover:after:w-full after:transition-all">Трасса</a>
+                <a href="#leaderboard" class="hover:text-brand-red transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-red hover:after:w-full after:transition-all">Рекорды</a>
+                <a href="#prices" class="hover:text-brand-red transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-red hover:after:w-full after:transition-all">Цены</a>
+            </nav>
+
+            <!-- Book Button -->
+            <div class="flex items-center gap-4">
+                <button onclick="openModal()" class="relative group skew-box overflow-hidden bg-brand-red px-6 py-3 font-heading text-black font-bold uppercase tracking-wider text-sm hover:bg-brand-yellow transition-all duration-300 glow-red hover:glow-yellow">
+                    <span class="relative z-10 inline-block unskew flex items-center gap-2">
+                        <i class="fa-solid fa-flag-checkered"></i> Забронировать
+                    </span>
+                    <div class="absolute inset-0 bg-white/30 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"></div>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION (Commercial Style) -->
+    <section class="relative min-h-screen pt-24 pb-16 flex items-center justify-center overflow-hidden">
+        <!-- Background Lighting FX -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-red/20 blur-[140px] rounded-full pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-[400px] h-[400px] bg-brand-yellow/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <!-- Animated Racing Lines -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
+            <div class="absolute top-1/3 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-brand-red to-transparent animate-speed-line"></div>
+            <div class="absolute top-2/3 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-yellow to-transparent animate-speed-line" style="animation-delay: 0.7s;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Text Content -->
+            <div class="lg:col-span-7 text-center lg:text-left">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-red/10 border border-brand-red/40 rounded-full mb-6 skew-box">
+                    <span class="w-2 h-2 rounded-full bg-brand-red animate-ping"></span>
+                    <span class="font-heading text-xs text-brand-red uppercase tracking-widest unskew">Максимальный адреналин 24/7</span>
+                </div>
+
+                <h1 class="font-heading text-5xl sm:text-7xl xl:text-8xl font-black uppercase tracking-tight italic leading-none mb-6">
+                    ПОЧУВСТВУЙ <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red via-red-500 to-brand-yellow text-glow-red">
+                        СКОРОСТЬ
+                    </span>
+                </h1>
+
+                <p class="text-lg sm:text-xl text-gray-300 max-w-2xl font-light mb-8 leading-relaxed">
+                    Профессиональные карты до <strong class="text-brand-yellow font-bold">110 км/ч</strong>, крытая трехуровневая трасса со светодиодным шоу и хронометраж уровня <strong class="text-white font-bold">Formula 1</strong>.
+                </p>
+
+                <!-- Hero Action Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <button onclick="openModal()" class="w-full sm:w-auto skew-box bg-brand-red text-black font-heading px-8 py-4 text-lg font-black uppercase tracking-wider hover:bg-brand-yellow transition-all duration-300 glow-red hover:glow-yellow group">
+                        <span class="inline-block unskew flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-bolt"></i> На старт — Забронировать
+                        </span>
+                    </button>
+                    <a href="#track" class="w-full sm:w-auto skew-box border-2 border-white/20 hover:border-brand-red px-8 py-4 font-heading text-lg font-bold uppercase tracking-wider text-white transition-all bg-black/40 hover:bg-brand-red/10 group">
+                        <span class="inline-block unskew flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-play text-brand-red group-hover:text-brand-yellow"></i> Виртуальный тур
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Stats counter bar -->
+                <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/10 max-w-xl mx-auto lg:mx-0">
+                    <div>
+                        <div class="font-heading text-3xl sm:text-4xl text-brand-yellow">110 <span class="text-sm font-body text-gray-400">км/ч</span></div>
+                        <div class="text-xs uppercase text-gray-400 font-bold mt-1">Макс. Скорость</div>
+                    </div>
+                    <div>
+                        <div class="font-heading text-3xl sm:text-4xl text-white">1 200 <span class="text-sm font-body text-gray-400">м</span></div>
+                        <div class="text-xs uppercase text-gray-400 font-bold mt-1">Длина Трассы</div>
+                    </div>
+                    <div>
+                        <div class="font-heading text-3xl sm:text-4xl text-brand-red">3.2 <span class="text-sm font-body text-gray-400">сек</span></div>
+                        <div class="text-xs uppercase text-gray-400 font-bold mt-1">0 - 100 км/ч</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Visual / SVG Dynamic Kart Graphic -->
+            <div class="lg:col-span-5 relative flex justify-center">
+                <!-- Glowing Circle Backdrop -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-brand-red/30 to-brand-yellow/20 rounded-full blur-2xl transform scale-90"></div>
+                
+                <div class="relative z-10 w-full max-w-md animate-float">
+                    <!-- Kart Concept Card/Illustration -->
+                    <div class="bg-brand-card/90 border-2 border-brand-red/40 rounded-2xl p-6 backdrop-blur-xl shadow-2xl relative overflow-hidden group hover:border-brand-yellow transition-all duration-500">
+                        <div class="absolute top-0 right-0 bg-brand-red text-black font-heading text-xs px-4 py-1 font-bold uppercase skew-box -mr-2 mt-2">
+                            <span class="unskew">SODI RT10 PRO</span>
+                        </div>
+                        
+                        <div class="py-8 flex justify-center">
+                            <!-- High quality Go-Kart SVG Graphic -->
+                            <svg class="w-full h-56 text-brand-red drop-shadow-[0_10px_20px_rgba(255,0,60,0.5)] transform -rotate-3 group-hover:scale-105 transition-transform duration-500" viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Body Frame -->
+                                <path d="M70 200 L120 120 L280 110 L430 180 L450 210 L50 210 Z" fill="#181920" stroke="#FF003C" stroke-width="6"/>
+                                <!-- Spoiler/Wing -->
+                                <path d="M40 130 L100 120 L110 140 L30 150 Z" fill="#FF003C"/>
+                                <path d="M40 110 L110 110 L100 120 L30 120 Z" fill="#FFE600"/>
+                                <!-- Front Bumper -->
+                                <path d="M400 190 L480 200 L470 230 L390 220 Z" fill="#FF003C"/>
+                                <!-- Seat / Helmet -->
+                                <circle cx="230" cy="110" r="30" fill="#0A0A0C" stroke="#FFE600" stroke-width="5"/>
+                                <path d="M225 100 Q 250 100 245 115 Q 225 125 220 110 Z" fill="#00F0FF"/>
+                                <!-- Steering Wheel -->
+                                <path d="M280 130 L300 145" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+                                <!-- Wheels -->
+                                <circle cx="120" cy="210" r="45" fill="#050506" stroke="#333" stroke-width="12"/>
+                                <circle cx="120" cy="210" r="20" fill="#FFE600"/>
+                                <circle cx="390" cy="210" r="45" fill="#050506" stroke="#333" stroke-width="12"/>
+                                <circle cx="390" cy="210" r="20" fill="#FF003C"/>
+                                <!-- Speed lines under wheels -->
+                                <path d="M20 260 L480 260" stroke="#FF003C" stroke-width="4" stroke-dasharray="15 10"/>
+                            </svg>
+                        </div>
+
+                        <div class="border-t border-white/10 pt-4 flex justify-between items-center">
+                            <div>
+                                <div class="text-xs text-gray-400 font-bold uppercase">Двигатель</div>
+                                <div class="font-heading text-lg text-white">Honda GX390 (15 Л.С.)</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs text-gray-400 font-bold uppercase">Ускорение</div>
+                                <div class="font-heading text-lg text-brand-yellow">3.2 сек</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 2: KARTS FLEET (Флот Каров) -->
+    <section id="karts" class="py-24 bg-black/60 relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-heading text-3xl sm:text-5xl uppercase tracking-wider italic">
+                    НАШ <span class="text-brand-red text-glow-red">ГОНОЧНЫЙ ФЛОТ</span>
+                </h2>
+                <p class="text-gray-400 mt-4 text-base">Топовые карты французского бренда SODI, обслуженные по стандартам международной федерации автоспорта FIA.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Kart Card 1 -->
+                <div class="bg-brand-card rounded-xl overflow-hidden border border-white/10 hover:border-brand-red transition-all duration-300 group">
+                    <div class="h-48 bg-gradient-to-b from-brand-red/20 to-transparent flex items-center justify-center p-6 relative">
+                        <span class="absolute top-4 left-4 bg-brand-red text-black font-heading text-xs px-3 py-1 font-bold uppercase skew-box">
+                            <span class="unskew">Детский / Новичок</span>
+                        </span>
+                        <i class="fa-solid fa-child-reaching text-7xl text-brand-red/40 group-hover:text-brand-red transition-colors group-hover:scale-110 duration-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading text-2xl text-white mb-2">SODI LR5 JUNIOR</h3>
+                        <p class="text-gray-400 text-sm mb-4">Безопасный карт с регулируемыми педалями и сиденьем. Идеально для детей и тех, кто впервые за рулем.</p>
+                        <ul class="space-y-2 text-sm text-gray-300 mb-6 font-medium">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Двигатель: Honda 160cc (5.5 л.с.)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Скорость: до 50 км/ч</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Рост пилота: 125 - 150 см</li>
+                        </ul>
+                        <button onclick="openModal('SODI LR5 Junior')" class="w-full py-3 bg-white/5 hover:bg-brand-red hover:text-black font-heading uppercase text-sm font-bold transition-all border border-white/10">Выбрать карт</button>
+                    </div>
+                </div>
+
+                <!-- Kart Card 2 (Featured) -->
+                <div class="bg-brand-card rounded-xl overflow-hidden border-2 border-brand-red transition-all duration-300 group transform md:-translate-y-4 shadow-[0_0_30px_rgba(255,0,60,0.2)]">
+                    <div class="h-48 bg-gradient-to-b from-brand-red/40 to-transparent flex items-center justify-center p-6 relative">
+                        <span class="absolute top-4 left-4 bg-brand-yellow text-black font-heading text-xs px-3 py-1 font-bold uppercase skew-box">
+                            <span class="unskew">ТОП ПРОДАЖ</span>
+                        </span>
+                        <i class="fa-solid fa-gauge-high text-7xl text-brand-yellow group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading text-2xl text-white mb-2">SODI RT10 SPORT</h3>
+                        <p class="text-gray-400 text-sm mb-4">Мощный стандартный карт с агрессивным дизайном, запатентованной системой защиты и гидравлическими тормозами.</p>
+                        <ul class="space-y-2 text-sm text-gray-300 mb-6 font-medium">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-yellow"></i> Двигатель: Honda GX270 (9 л.с.)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-yellow"></i> Скорость: до 85 км/ч</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-yellow"></i> Рост пилота: от 150 см</li>
+                        </ul>
+                        <button onclick="openModal('SODI RT10 Sport')" class="w-full py-3 bg-brand-red text-black hover:bg-brand-yellow font-heading uppercase text-sm font-bold transition-all glow-red">Выбрать карт</button>
+                    </div>
+                </div>
+
+                <!-- Kart Card 3 -->
+                <div class="bg-brand-card rounded-xl overflow-hidden border border-white/10 hover:border-brand-red transition-all duration-300 group">
+                    <div class="h-48 bg-gradient-to-b from-brand-red/20 to-transparent flex items-center justify-center p-6 relative">
+                        <span class="absolute top-4 left-4 bg-brand-neon text-black font-heading text-xs px-3 py-1 font-bold uppercase skew-box">
+                            <span class="unskew">ПРО УРОВЕНЬ</span>
+                        </span>
+                        <i class="fa-solid fa-fire-flame-curved text-7xl text-brand-neon/40 group-hover:text-brand-neon transition-colors group-hover:scale-110 duration-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading text-2xl text-white mb-2">SODI SPORT 15HP</h3>
+                        <p class="text-gray-400 text-sm mb-4">Экстремальный клубный карт. Допускаются пилоты, прошедшие аттестацию или показавшие время круга < 45 сек.</p>
+                        <ul class="space-y-2 text-sm text-gray-300 mb-6 font-medium">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neon"></i> Двигатель: Honda GX390 (15 л.с.)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neon"></i> Скорость: до 110 км/ч</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-neon"></i> Спортивные слики Vega</li>
+                        </ul>
+                        <button onclick="openModal('SODI Sport 15HP')" class="w-full py-3 bg-white/5 hover:bg-brand-red hover:text-black font-heading uppercase text-sm font-bold transition-all border border-white/10">Выбрать карт</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE TRACK SECTION -->
+    <section id="track" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Info Left -->
+                <div class="lg:col-span-5">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-yellow/10 border border-brand-yellow/30 rounded-full mb-4">
+                        <span class="font-heading text-xs text-brand-yellow uppercase tracking-widest">Конфигурация Трассы</span>
+                    </div>
+                    <h2 class="font-heading text-4xl sm:text-5xl uppercase tracking-wider italic mb-6">
+                        ТРЕК <span class="text-brand-yellow text-glow-yellow">СУПЕРЛИГИ</span>
+                    </h2>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Наша конфигурация спроектирована инженерами гоночных трасс F1. Сочетание скоростных прямых, шпилек и скоростного эски позволит проверить ваш навык апексов.
+                    </p>
+
+                    <!-- Interactive Config Switcher -->
+                    <div class="space-y-4 mb-8">
+                        <button onclick="switchTrack('pro')" id="btn-track-pro" class="w-full p-4 rounded-lg bg-brand-card border-2 border-brand-red flex items-center justify-between transition-all">
+                            <div class="flex items-center gap-4">
+                                <i class="fa-solid fa-road text-2xl text-brand-red"></i>
+                                <div class="text-left">
+                                    <div class="font-heading text-lg">Конфигурация "PRO RACE"</div>
+                                    <div class="text-xs text-gray-400">1200 метров // 16 поворотов</div>
+                                </div>
+                            </div>
+                            <span class="font-heading text-xs bg-brand-red text-black px-2 py-1 rounded uppercase">Активно</span>
+                        </button>
+
+                        <button onclick="switchTrack('drift')" id="btn-track-drift" class="w-full p-4 rounded-lg bg-brand-card/50 border border-white/10 flex items-center justify-between hover:border-brand-yellow transition-all">
+                            <div class="flex items-center gap-4">
+                                <i class="fa-solid fa-wind text-2xl text-gray-400"></i>
+                                <div class="text-left">
+                                    <div class="font-heading text-lg">Конфигурация "DRIFT RING"</div>
+                                    <div class="text-xs text-gray-400">850 метров // Скользкий покрытие</div>
+                                </div>
+                            </div>
+                            <span class="font-heading text-xs bg-white/10 text-gray-400 px-2 py-1 rounded uppercase">Выбрать</span>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+                        <div>
+                            <span class="text-xs text-gray-400 uppercase font-bold">Ширина полосы</span>
+                            <div class="font-heading text-xl text-white mt-1">8 - 12 метров</div>
+                        </div>
+                        <div>
+                            <span class="text-xs text-gray-400 uppercase font-bold">Покрытие</span>
+                            <div class="font-heading text-xl text-white mt-1">Гоночный асфальт</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Track Canvas / Graphic Right -->
+                <div class="lg:col-span-7 bg-brand-card p-6 sm:p-8 rounded-2xl border border-white/10 relative">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="font-heading text-sm text-gray-400 uppercase flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></span> Интерактивная карта трассы
+                        </span>
+                        <span class="text-xs font-mono text-brand-yellow" id="track-length-badge">ДЛИНА: 1200 М</span>
+                    </div>
+
+                    <!-- SVG Track Map -->
+                    <div class="relative w-full h-80 sm:h-96 bg-black/80 rounded-xl flex items-center justify-center p-4 border border-white/5 overflow-hidden">
+                        <svg id="track-svg" class="w-full h-full text-brand-red transition-all duration-500" viewBox="0 0 800 500" fill="none">
+                            <!-- Track Path Outer Glow -->
+                            <path id="track-path-glow" d="M 150,100 L 650,100 C 720,100 750,150 720,220 L 600,280 C 550,300 550,400 650,400 C 720,400 750,450 680,450 L 200,450 C 100,450 80,350 150,300 L 250,220 C 300,180 200,100 150,100 Z" stroke="#FF003C" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
+                            <!-- Track Path Main -->
+                            <path id="track-path" d="M 150,100 L 650,100 C 720,100 750,150 720,220 L 600,280 C 550,300 550,400 650,400 C 720,400 750,450 680,450 L 200,450 C 100,450 80,350 150,300 L 250,220 C 300,180 200,100 150,100 Z" stroke="#121318" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path id="track-line" d="M 150,100 L 650,100 C 720,100 750,150 720,220 L 600,280 C 550,300 550,400 650,400 C 720,400 750,450 680,450 L 200,450 C 100,450 80,350 150,300 L 250,220 C 300,180 200,100 150,100 Z" stroke="#FF003C" stroke-width="3" stroke-dasharray="10 6"/>
+
+                            <!-- Start / Finish Line -->
+                            <line x1="380" y1="90" x2="380" y2="110" stroke="#FFE600" stroke-width="6"/>
+                            <text x="365" y="80" fill="#FFE600" font-family="Russo One" font-size="14">СТАРТ</text>
+
+                            <!-- Sector Markers -->
+                            <circle cx="680" cy="230" r="8" fill="#FFE600"/>
+                            <text x="700" y="235" fill="#FFF" font-family="Montserrat" font-size="12" font-weight="bold">Сектор 1</text>
+
+                            <circle cx="350" cy="450" r="8" fill="#00F0FF"/>
+                            <text x="330" y="480" fill="#FFF" font-family="Montserrat" font-size="12" font-weight="bold">Сектор 2</text>
+                        </svg>
+
+                        <!-- Live Lap Telemetry Overlay -->
+                        <div class="absolute bottom-4 left-4 bg-black/90 p-3 rounded border border-white/20 font-mono text-xs">
+                            <div class="text-gray-400">РЕКОРД ТРАССЫ:</div>
+                            <div class="text-brand-yellow font-bold text-base">41.892 сек (А. Петров)</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE LEADERBOARD / TIMING SIMULATOR -->
+    <section id="leaderboard" class="py-20 bg-black/80 border-t border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-brand-red font-heading uppercase text-xs tracking-widest">Онлайн Телеметрия</span>
+                    <h2 class="font-heading text-3xl sm:text-5xl uppercase italic mt-1">
+                        ТОП ЛУЧШИХ <span class="text-brand-red">КРУГОВ МЕСЯЦА</span>
+                    </h2>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center gap-2">
+                    <span class="w-3 h-3 bg-red-600 rounded-full animate-ping"></span>
+                    <span class="text-xs font-mono text-gray-400">LIVE TIMING SYSTEM</span>
+                </div>
+            </div>
+
+            <!-- Leaderboard Table -->
+            <div class="bg-brand-card rounded-xl border border-white/10 overflow-hidden shadow-2xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-black/60 border-b border-white/10 text-xs font-heading uppercase text-gray-400 tracking-wider">
+                                <th class="py-4 px-6">Поз.</th>
+                                <th class="py-4 px-6">Пилот</th>
+                                <th class="py-4 px-6">Карт</th>
+                                <th class="py-4 px-6">Время Круга</th>
+                                <th class="py-4 px-6 text-right">Отрыв</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/5 font-mono text-sm">
+                            <tr class="hover:bg-brand-red/10 transition-colors">
+                                <td class="py-4 px-6 font-heading text-brand-yellow text-base">#1</td>
+                                <td class="py-4 px-6 font-bold font-body text-white flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-full bg-brand-yellow text-black font-heading text-xs flex items-center justify-center font-bold">AP</span>
+                                    Александр Петров
+                                </td>
+                                <td class="py-4 px-6 text-gray-300">SODI Sport 15HP</td>
+                                <td class="py-4 px-6 font-bold text-brand-yellow">41.892 с</td>
+                                <td class="py-4 px-6 text-right text-gray-500">—</td>
+                            </tr>
+                            <tr class="hover:bg-brand-red/10 transition-colors">
+                                <td class="py-4 px-6 font-heading text-gray-300 text-base">#2</td>
+                                <td class="py-4 px-6 font-bold font-body text-white flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-full bg-gray-700 text-white font-heading text-xs flex items-center justify-center font-bold">МС</span>
+                                    Максим Смирнов
+                                </td>
+                                <td class="py-4 px-6 text-gray-300">SODI Sport 15HP</td>
+                                <td class="py-4 px-6 font-bold text-white">42.105 с</td>
+                                <td class="py-4 px-6 text-right text-brand-red">+0.213 с</td>
+                            </tr>
+                            <tr class="hover:bg-brand-red/10 transition-colors">
+                                <td class="py-4 px-6 font-heading text-amber-700 text-base">#3</td>
+                                <td class="py-4 px-6 font-bold font-body text-white flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-full bg-amber-800 text-white font-heading text-xs flex items-center justify-center font-bold">ДК</span>
+                                    Дмитрий Ковалев
+                                </td>
+                                <td class="py-4 px-6 text-gray-300">SODI RT10 Sport</td>
+                                <td class="py-4 px-6 font-bold text-white">42.480 с</td>
+                                <td class="py-4 px-6 text-right text-brand-red">+0.588 с</td>
+                            </tr>
+                            <tr class="hover:bg-brand-red/10 transition-colors">
+                                <td class="py-4 px-6 font-heading text-gray-400">#4</td>
+                                <td class="py-4 px-6 font-bold font-body text-white flex items-center gap-3">
+                                    <span class="w-7 h-7 rounded-full bg-gray-800 text-gray-300 font-heading text-xs flex items-center justify-center font-bold">ЕИ</span>
+                                    Елена Иванова
+                                </td>
+                                <td class="py-4 px-6 text-gray-300">SODI RT10 Sport</td>
+                                <td class="py-4 px-6 font-bold text-white">43.012 с</td>
+                                <td class="py-4 px-6 text-right text-brand-red">+1.120 с</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING & RACE PACKAGES -->
+    <section id="prices" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-yellow font-heading text-xs uppercase tracking-widest">Тарифы и Заезды</span>
+                <h2 class="font-heading text-4xl sm:text-6xl uppercase italic mt-2">
+                    ВЫБЕРИ СВОЙ <span class="text-brand-red text-glow-red">ФОРМАТ</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Package 1 -->
+                <div class="bg-brand-card p-8 rounded-2xl border border-white/10 flex flex-col justify-between hover:border-brand-red transition-all">
+                    <div>
+                        <div class="font-heading text-xl text-white mb-2">ОДИНОЧНЫЙ ЗАЕЗД</div>
+                        <p class="text-gray-400 text-sm mb-6">Отличный вариант, чтобы выплеснуть адреналин и проверить свои навыки.</p>
+                        <div class="font-heading text-4xl text-white mb-6">
+                            1 500 <span class="text-base font-body text-gray-400">₽ / 10 мин</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-300 mb-8">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Экипировка включена</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Инструктаж по безопасности</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Распечатка телеметрии</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('Одиночный заезд')" class="w-full py-4 bg-white/10 hover:bg-brand-red hover:text-black font-heading uppercase text-sm font-bold transition-all">Забронировать</button>
+                </div>
+
+                <!-- Package 2 (VIP / Popular) -->
+                <div class="bg-brand-card p-8 rounded-2xl border-2 border-brand-red flex flex-col justify-between relative transform md:-translate-y-4 shadow-[0_10px_30px_rgba(255,0,60,0.3)]">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-red text-black font-heading text-xs px-4 py-1 uppercase font-bold skew-box">
+                        <span class="unskew">ПОПУЛЯРНЫЙ</span>
+                    </div>
+                    <div>
+                        <div class="font-heading text-xl text-brand-yellow mb-2">МИНИ-ГРАН-ПРИ</div>
+                        <p class="text-gray-400 text-sm mb-6">Настоящий формат Формулы-1 для компании друзей от 4 человек.</p>
+                        <div class="font-heading text-4xl text-white mb-6">
+                            3 900 <span class="text-base font-body text-gray-400">₽ / чел</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-300 mb-8">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-yellow"></i> Квалификация + Финальная гонка</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-yellow"></i> Старт с решетки светофора</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-yellow"></i> Награждение на подиуме и кубки</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('Мини-Гран-При')" class="w-full py-4 bg-brand-red text-black hover:bg-brand-yellow font-heading uppercase text-sm font-bold transition-all glow-red">Забронировать Гонку</button>
+                </div>
+
+                <!-- Package 3 -->
+                <div class="bg-brand-card p-8 rounded-2xl border border-white/10 flex flex-col justify-between hover:border-brand-red transition-all">
+                    <div>
+                        <div class="font-heading text-xl text-white mb-2">АРЕНДА ТРАССЫ</div>
+                        <p class="text-gray-400 text-sm mb-6">Полный эксклюзивный доступ к треку для корпоративов и закрытых вечеринок.</p>
+                        <div class="font-heading text-4xl text-white mb-6">
+                            35 000 <span class="text-base font-body text-gray-400">₽ / час</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-300 mb-8">
+                            <li class="flex items-center gap-2"><li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> До 15 картов одновременно</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Персональный маршал и хронометрист</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Доступ в VIP-ложу</li>
+                        </ul>
+                    </div>
+                    <button onclick="openModal('Аренда трассы')" class="w-full py-4 bg-white/10 hover:bg-brand-red hover:text-black font-heading uppercase text-sm font-bold transition-all">Забронировать Трек</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-8 bg-brand-red skew-box flex items-center justify-center font-heading text-xl text-black font-black">
+                    <span class="unskew">A</span>
+                </div>
+                <span class="font-heading text-xl text-white">APEX<span class="text-brand-red">RUSH</span></span>
+            </div>
+            
+            <div class="text-gray-500 text-xs font-mono">
+                © 2026 APEX RUSH KARTING CLUB. ВСЕ ПРАВА ЗАЩИЩЕНЫ.
+            </div>
+
+            <div class="flex gap-4 text-gray-400 text-lg">
+                <a href="#" class="hover:text-brand-red transition-colors"><i class="fa-brands fa-vk"></i></a>
+                <a href="#" class="hover:text-brand-red transition-colors"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#" class="hover:text-brand-red transition-colors"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOOKING MODAL WINDOW -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-brand-card w-full max-w-lg rounded-2xl border-2 border-brand-red p-6 sm:p-8 relative shadow-[0_0_50px_rgba(255,0,60,0.4)] animate-float">
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-red text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 class="font-heading text-2xl uppercase italic text-white mb-2">ЗАБРОНИРОВАТЬ <span class="text-brand-red">ЗАЕЗД</span></h3>
+            <p class="text-gray-400 text-xs mb-6">Заполните форму, и наш администратор свяжется с вами в течение 5 минут для подтверждения времени.</p>
+
+            <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-heading uppercase text-gray-400 mb-1">Ваше Имя</label>
+                    <input type="text" required placeholder="Александр" class="w-full bg-black/60 border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-red transition-colors">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-heading uppercase text-gray-400 mb-1">Телефон</label>
+                    <input type="tel" required placeholder="+7 (999) 000-00-00" class="w-full bg-black/60 border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-red transition-colors">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-heading uppercase text-gray-400 mb-1">Формат / Карт</label>
+                    <select id="modal-select-format" class="w-full bg-black/60 border border-white/20 rounded px-4 py-3 text-white focus:outline-none focus:border-brand-red transition-colors">
+                        <option value="Одиночный заезд">Одиночный заезд (1 500 ₽)</option>
+                        <option value="Мини-Гран-При">Мини-Гран-При (3 900 ₽)</option>
+                        <option value="Аренда трассы">Аренда трассы (35 000 ₽)</option>
+                        <option value="SODI LR5 Junior">SODI LR5 Junior</option>
+                        <option value="SODI RT10 Sport">SODI RT10 Sport</option>
+                        <option value="SODI Sport 15HP">SODI Sport 15HP</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full py-4 bg-brand-red hover:bg-brand-yellow text-black font-heading uppercase text-sm font-bold transition-all glow-red mt-4">
+                    ПОДТВЕРДИТЬ БРОНИРОВАНИЕ
+                </button>
+            </form>
+
+            <div id="modal-success-msg" class="hidden text-center py-8">
+                <i class="fa-solid fa-circle-check text-5xl text-brand-yellow mb-4"></i>
+                <h4 class="font-heading text-2xl text-white">ЗАЯВКА ПРИНЯТА!</h4>
+                <p class="text-gray-300 text-sm mt-2">До встречи на трассе APEX RUSH!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        // Modal functions
+        function openModal(packageName) {
+            const modal = document.getElementById('booking-modal');
+            const select = document.getElementById('modal-select-format');
+            if (packageName && select) {
+                select.value = packageName;
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('booking-modal');
+            modal.classList.add('hidden');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const successMsg = document.getElementById('modal-success-msg');
+            
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+
+            setTimeout(() => {
+                closeModal();
+                form.reset();
+                form.classList.remove('hidden');
+                successMsg.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Track switcher logic
+        function switchTrack(type) {
+            const pathGlow = document.getElementById('track-path-glow');
+            const pathMain = document.getElementById('track-path');
+            const pathLine = document.getElementById('track-line');
+            const badge = document.getElementById('track-length-badge');
+            
+            const btnPro = document.getElementById('btn-track-pro');
+            const btnDrift = document.getElementById('btn-track-drift');
+
+            if (type === 'pro') {
+                const dPro = "M 150,100 L 650,100 C 720,100 750,150 720,220 L 600,280 C 550,300 550,400 650,400 C 720,400 750,450 680,450 L 200,450 C 100,450 80,350 150,300 L 250,220 C 300,180 200,100 150,100 Z";
+                pathGlow.setAttribute('d', dPro);
+                pathMain.setAttribute('d', dPro);
+                pathLine.setAttribute('d', dPro);
+                badge.innerText = "ДЛИНА: 1200 М";
+
+                btnPro.classList.add('border-brand-red', 'bg-brand-card');
+                btnPro.classList.remove('border-white/10', 'bg-brand-card/50');
+                btnDrift.classList.remove('border-brand-yellow', 'bg-brand-card');
+                btnDrift.classList.add('border-white/10', 'bg-brand-card/50');
+            } else {
+                const dDrift = "M 200,150 C 400,50 600,50 650,150 C 700,250 600,400 400,400 C 200,400 100,250 200,150 Z";
+                pathGlow.setAttribute('d', dDrift);
+                pathMain.setAttribute('d', dDrift);
+                pathLine.setAttribute('d', dDrift);
+                badge.innerText = "ДЛИНА: 850 М";
+
+                btnDrift.classList.add('border-brand-yellow', 'bg-brand-card');
+                btnDrift.classList.remove('border-white/10', 'bg-brand-card/50');
+                btnPro.classList.remove('border-brand-red', 'bg-brand-card');
+                btnPro.classList.add('border-white/10', 'bg-brand-card/50');
+            }
+        }
+    </script>
+</body>
+</html>
